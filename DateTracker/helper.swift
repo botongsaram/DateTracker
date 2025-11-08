@@ -17,4 +17,14 @@ extension UIView {
             bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -constant)
         ])
     }
+    
+    func attachToParentView(parentView: UIView, horizontal: CGFloat = 0, vertical: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: parentView.topAnchor, constant: horizontal),
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: vertical),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -vertical),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -horizontal)
+        ])
+    }
 }

@@ -7,10 +7,36 @@
 
 import UIKit
 
-final class DateView: UIView {
+struct DateSection {
+    let title: String
+    var rowItems: [RowItem]
+}
 
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
+struct RowItem {
+    let id: Int
+    let date: Date
+    let dateUnit: DateUnit?
+}
+
+enum DateUnit: String {
+    case day = "Day"
+    case week = "Week"
+    case month = "Month"
+    case year = "Year"
+    
+    func dateUnitToString(isSingleUnit: Bool) -> String {
+        return "\(self.rawValue)s"
+    }
+}
+
+final class DateTableViewCell: UITableViewCell {
+    static let cellId = "DateTableViewCell"
+    let stackView = UIStackView()
+    let dateLabel = UILabel()
+    let titleLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         updateUI()
     }
     
@@ -19,6 +45,20 @@ final class DateView: UIView {
     }
     
     private func updateUI() {
-        backgroundColor = .green
+        addSubview(stackView)
+        stackView.alignment = .center
+        stackView.axis = .horizontal
+        stackView.attachToParentView(parentView: self, horizontal: 12, vertical: 24)
+        stackView.addArrangedSubview(dateLabel)
+        stackView.addArrangedSubview(titleLabel)
+    }
+    
+    func configure(date: Date, dateUnit: DateUnit? = nil) {
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .none
+        let string = dateformatter.string(from: date)
+        dateLabel.text = string
+        titleLabel.text = dateUnit?.rawValue
     }
 }

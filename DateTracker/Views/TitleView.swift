@@ -15,7 +15,6 @@ final class TitleView: UIView {
         return imgView
     }()
     let titleLabel = UILabel()
-    let timeElapsedLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -27,7 +26,7 @@ final class TitleView: UIView {
     }
     
     private func updateUI() {
-        [titleImage, titleLabel, timeElapsedLabel].forEach {
+        [titleImage, titleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
@@ -39,18 +38,11 @@ final class TitleView: UIView {
             titleLabel.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            timeElapsedLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            timeElapsedLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            timeElapsedLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            timeElapsedLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
         
         titleLabel.text = "Baby was born"
         titleLabel.textAlignment = .center
-        
-        timeElapsedLabel.text = "Time Elapsed"
-        timeElapsedLabel.textAlignment = .center
     }
     
 }
