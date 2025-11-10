@@ -7,28 +7,6 @@
 
 import UIKit
 
-struct DateSection {
-    let title: String
-    var rowItems: [RowItem]
-}
-
-struct RowItem {
-    let id: Int
-    let date: Date
-    let dateUnit: DateUnit?
-}
-
-enum DateUnit: String {
-    case day = "Day"
-    case week = "Week"
-    case month = "Month"
-    case year = "Year"
-    
-    func dateUnitToString(isSingleUnit: Bool) -> String {
-        return "\(self.rawValue)s"
-    }
-}
-
 final class DateTableViewCell: UITableViewCell {
     static let cellId = "DateTableViewCell"
     let stackView = UIStackView()
@@ -53,12 +31,8 @@ final class DateTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(titleLabel)
     }
     
-    func configure(date: Date, dateUnit: DateUnit? = nil) {
-        let dateformatter = DateFormatter()
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .none
-        let string = dateformatter.string(from: date)
-        dateLabel.text = string
+    func configure(value: String? = nil, dateUnit: DateUnit? = nil) {
+        dateLabel.text = value
         titleLabel.text = dateUnit?.rawValue
     }
 }
