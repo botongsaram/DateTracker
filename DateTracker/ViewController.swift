@@ -11,12 +11,18 @@ final class ViewController: UIViewController {
     let titleView = TitleView()
     let tableView = UITableView()
     let mockDate: Date = Date(timeIntervalSince1970: 1755788375)
-    let dateModel: DateModel = .init(eventDate: Date(timeIntervalSince1970: 1755788375))
+    let mockEventDescription: String = "Baby was born"
+    var dateModel: DateModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupData()
         setupTableView()
         updateUI()
+    }
+    
+    private func setupData() {
+        dateModel = .init(eventDate: Date(timeIntervalSince1970: 1755788375), eventDescription: mockEventDescription)
     }
     
     private func setupTableView() {
@@ -47,22 +53,22 @@ final class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dateModel.viewModel?.count ?? 0
+        return dateModel?.viewModel?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dateModel.viewModel?[section].rowItems.count ?? 0
+        return dateModel?.viewModel?[section].rowItems.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dateModel.viewModel?[section].title
+        return dateModel?.viewModel?[section].title
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DateTableViewCell.cellId, for: indexPath) as! DateTableViewCell
-        if let sectionData = dateModel.viewModel?[indexPath.section] {
+        if let sectionData = dateModel?.viewModel?[indexPath.section] {
             let rowItem = sectionData.rowItems[indexPath.row]
-            cell.configure(value: rowItem.value, dateUnit: rowItem.dateUnit ?? nil)
+            cell.configure(value: rowItem.value, eventDescription: rowItem.eventDescription)
             return cell
         }
         return cell

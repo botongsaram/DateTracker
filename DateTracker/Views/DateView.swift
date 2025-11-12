@@ -11,7 +11,7 @@ final class DateTableViewCell: UITableViewCell {
     static let cellId = "DateTableViewCell"
     let stackView = UIStackView()
     let dateLabel = UILabel()
-    let titleLabel = UILabel()
+    let descriptionLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,11 +28,18 @@ final class DateTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.attachToParentView(parentView: self, horizontal: 12, vertical: 24)
         stackView.addArrangedSubview(dateLabel)
-        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(descriptionLabel)
+        dateLabel.textAlignment = .left
+        dateLabel.numberOfLines = 0
     }
     
-    func configure(value: String? = nil, dateUnit: DateUnit? = nil) {
-        dateLabel.text = value
-        titleLabel.text = dateUnit?.rawValue
+    func configure(value: String? = nil, eventDescription: String? = nil) {
+        if let dateValue = value {
+            if let description = eventDescription {
+             dateLabel.text = "\(dateValue) since \(description)"
+            } else {
+                dateLabel.text = dateValue
+            }
+        }
     }
 }
