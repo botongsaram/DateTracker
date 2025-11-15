@@ -35,14 +35,21 @@ final class TitleView: UIView {
             titleImage.topAnchor.constraint(equalTo: topAnchor),
             titleImage.heightAnchor.constraint(lessThanOrEqualToConstant: 60),
             titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
-        
-        titleLabel.text = "Baby was born"
         titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
+    }
+    
+    func configure(title: String) {
+        let textAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 24, weight: .bold),
+            .foregroundColor: UIColor.label
+        ]
+        titleLabel.attributedText = NSAttributedString(string: title, attributes: textAttributes)
     }
     
 }

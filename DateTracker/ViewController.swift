@@ -23,6 +23,7 @@ final class ViewController: UIViewController {
     
     private func setupData() {
         dateModel = .init(eventDate: Date(timeIntervalSince1970: 1755788375), eventDescription: mockEventDescription)
+        titleView.configure(title: mockEventDescription)
     }
     
     private func setupTableView() {
@@ -46,7 +47,9 @@ final class ViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30)
         ])
+        
         titleView.contentMode = .center
+        tableView.separatorStyle = .none
     }
 }
 

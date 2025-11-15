@@ -35,11 +35,20 @@ final class DateTableViewCell: UITableViewCell {
     
     func configure(value: String? = nil, eventDescription: String? = nil) {
         if let dateValue = value {
+            let mutableAttributedStr: NSMutableAttributedString = .init()
+            let dateAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+                .foregroundColor: UIColor.label
+            ]
+            mutableAttributedStr.append(NSAttributedString(string: dateValue, attributes: dateAttributes))
             if let description = eventDescription {
-             dateLabel.text = "\(dateValue) since \(description)"
-            } else {
-                dateLabel.text = dateValue
+                let descriptionAttributes: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.systemFont(ofSize: 16, weight: .regular),
+                    .foregroundColor: UIColor.secondaryLabel
+                ]
+                mutableAttributedStr.append(NSAttributedString(string: " since \(description)", attributes: descriptionAttributes))
             }
+            dateLabel.attributedText = mutableAttributedStr
         }
     }
 }
